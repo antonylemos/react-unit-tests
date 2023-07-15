@@ -44,7 +44,7 @@ export function Dashboard() {
         <header>
           <h1>Testes no Front-end</h1>
 
-          <span>01 de julho de 2023</span>
+          <span>Sejam bem-vindos!</span>
         </header>
 
         <Form name="form" onSubmit={handleAddParticipant}>
