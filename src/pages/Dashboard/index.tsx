@@ -1,42 +1,14 @@
-import { FormEvent, useEffect, useState } from "react";
 import { Card, Container, Form, Participants } from "./styles";
-import { Participant } from "./types";
-import { api } from "../../services/api";
+import { useDashboard } from "./useDashboard";
 
 export function Dashboard() {
-  const [newParticipant, setNewParticipant] = useState('');
-  const [participants, setParticipants] = useState([] as Participant[]);
-
-  async function getAllParticipants() {
-    const response = await api.get<Participant[]>('participants');
-
-    setParticipants(response.data);
-  }
-
-  useEffect(() => {
-    getAllParticipants();
-  }, []);
-
-  function handleAddParticipant(
-    event: FormEvent<HTMLFormElement>,
-  ) {
-    event.preventDefault();
-
-    if (!newParticipant) {
-      return;
-    }
-
-    setParticipants([...participants, { id: Math.random(), name: newParticipant }]);
-    setNewParticipant('');
-  }
-
-  function handleDeleteParticipant(
-    participantId?: number,
-  ) {
-    const remainingParticipants = participants.filter(({id}) => id !== participantId);
-
-    setParticipants(remainingParticipants);
-  }
+  const {
+    participants,
+    newParticipant,
+    handleAddParticipant,
+    handleDeleteParticipant,
+    setNewParticipant,
+  } = useDashboard();
 
   return (
     <Container>
